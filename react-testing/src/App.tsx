@@ -29,6 +29,7 @@ const CustomInput = ({children, value, onChange}: CustomInputProps) => {
     <div>
       <label htmlFor="search">{children}</label>
       <input
+        placeholder="Example"
         id="search"
         type="text"
         value={value}
