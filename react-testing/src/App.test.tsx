@@ -20,20 +20,23 @@ describe('When everything is OK', () => {
   });
 
   it('should select the children that are being passed to the CustomInput component', () => {
-    screen.getByText(/Input/);
+    screen.getAllByText(/Input/);
   });
 
   it('should select the input element by its role', () => {
-    screen.getByRole('textbox');
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    screen.getAllByRole('textbox');
+    expect(screen.getAllByRole('textbox')[0]).toBeInTheDocument();
+    expect(screen.getAllByRole('textbox')[1]).toBeInTheDocument();
+    expect(screen.getAllByRole('textbox').length).toEqual(2);
   });
 
   it('should select a label element by its text', () => {
+    // Because both labels have the same name, RTL considers it 1 label
     screen.getByLabelText('Input:');
   });
 
   it('should select input element by placeholder text', () => {
-    screen.getByPlaceholderText('Example');
+    screen.getAllByPlaceholderText('Example');
   });
 
   it('should not find the role "whatever" in component', () => {
