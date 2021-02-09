@@ -1,11 +1,19 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import App from './App';
+import { getUser } from './get-user';
+import { mocked } from 'ts-jest/utils';
+
+jest.mock('./get-user');
+// 'true' in mocked() means that this will do a deep clone of the function
+const mockGetUser = mocked(getUser, true);
 
 describe('When everything is OK', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     render(<App />);
+    await waitFor(() => expect(mockGetUser).toHaveBeenCalled());
   });
+
   it('should render the App component without crashing', () => {
     screen.debug();
   });
@@ -32,5 +40,16 @@ describe('When everything is OK', () => {
     // const result = screen.queryByRole('textbox');
     // console.log(result);
     // expect(result).toBeInTheDocument();
+  });
+});
+
+describe('When the component fetches the user successfully', () => {
+  beforeEach(() => {
+    mockGetUser.mockClear();
+  });
+
+  it('should call getUser once', async () => {
+    render(<App />);
+    await waitFor(() => expect(mockGetUser).toHaveBeenCalledTimes(1));
   });
 });
