@@ -15,6 +15,7 @@ describe('When everything is OK', () => {
   });
 
   it('should render the App component without crashing', () => {
+    console.log('first');
     screen.debug();
   });
 
@@ -51,5 +52,17 @@ describe('When the component fetches the user successfully', () => {
   it('should call getUser once', async () => {
     render(<App />);
     await waitFor(() => expect(mockGetUser).toHaveBeenCalledTimes(1));
+  });
+
+  it('should render the username passed', async () => {
+    const name = 'John';
+    // mockGetUser.mockImplementationOnce(() =>
+    //   Promise.resolve({ id: '1', name: 'John' })
+    // );
+    // The above code does the same as the line below
+    mockGetUser.mockResolvedValueOnce({ id: '1', name });
+    render(<App />);
+    expect(screen.queryByText(/Username/)).toBeNull();
+    expect(await screen.findByText(`Username: ${name}`)).toBeInTheDocument();
   });
 });
