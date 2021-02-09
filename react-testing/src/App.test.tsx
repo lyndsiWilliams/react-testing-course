@@ -5,7 +5,7 @@ import App from './App';
 describe('When everything is OK', () => {
   beforeEach(() => {
     render(<App />);
-  })
+  });
   it('should render the App component without crashing', () => {
     screen.debug();
   });
