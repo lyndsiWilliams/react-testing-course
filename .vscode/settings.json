@@ -1,0 +1,4 @@
+{
+  "jest.rootPath": "react-testing",
+  "jest.debugMode": true
+}
