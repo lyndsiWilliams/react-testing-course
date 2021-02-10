@@ -16,7 +16,7 @@ describe('When everything is OK', () => {
   });
 
   it('should render the App component without crashing', () => {
-    console.log('first');
+    // console.log('first');
     screen.debug();
   });
 
@@ -75,7 +75,7 @@ describe('When the user enters some text in the input element', () => {
     render(<App />);
     await waitFor(() => expect(mockGetUser).toHaveBeenCalled());
 
-    expect(screen.getByText(/You typed: .../));
+    expect(screen.getByText(/You typed: .../)).toBeInTheDocument();
 
     // --- Using fireEvent ---
     // fireEvent.change(screen.getByRole('textbox'), {
@@ -84,6 +84,6 @@ describe('When the user enters some text in the input element', () => {
     // --- Using userEvent ---
     await userEvent.type(screen.getByRole('textbox'), 'David');
 
-    expect(screen.getByText(/You typed: David/));
+    expect(screen.getByText(/You typed: David/)).toBeInTheDocument();
   });
 });
