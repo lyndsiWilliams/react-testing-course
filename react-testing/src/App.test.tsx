@@ -16,7 +16,6 @@ describe('When everything is OK', () => {
   });
 
   it('should render the App component without crashing', () => {
-    // console.log('first');
     screen.debug();
   });
 
